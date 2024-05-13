@@ -27,8 +27,8 @@ public class UserService implements UserDetailsService {
     public Optional<User> getByUsername(String username){
         return this.userRepository.findByUsername(username);
     }
-    public User createUser(CreateUserRequest request){
-        User newUser = User.builder()
+    public String createUser(CreateUserRequest request){
+        /*User newUser = User.builder()
                 .name(request.name())
                 .username(request.username())
                 .password(passwordEncoder.encode(request.password()))
@@ -38,7 +38,9 @@ public class UserService implements UserDetailsService {
                 .accountNonLocked(true)
                 .isEnabled(true)
                 .build();
-        return this.userRepository.save(newUser);
+        return this.userRepository.save(newUser);*/
+
+        return "User created successfully!" + request.authorities();
     }
 
 }

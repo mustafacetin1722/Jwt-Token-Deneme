@@ -33,17 +33,17 @@ public class UserController {
     }
 
     @PostMapping("/addNewUser")
-    public User addUser(@RequestBody CreateUserRequest request){
+    public String addUser(@RequestBody CreateUserRequest request){
         return userService.createUser(request);
     }
 
     @PostMapping("/generateToken")
     public String generateToken(@RequestBody AuthRequest request){
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.username(),request.password()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.username(), request.password()));
         if (authentication.isAuthenticated()){
-            return jwtService.generateToken(request.username());
+            return jwtService.createJwt(request.username());
         }
-        log.info("invalid username " + request.username());
+        log.info("Invalid username " + request.username());
         throw new UsernameNotFoundException("Invalid Username " + request.username());
     }
 
